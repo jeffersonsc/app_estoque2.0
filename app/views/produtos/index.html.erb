@@ -1,0 +1,51 @@
+<h1> Início </h1>
+
+<%= link_to "Importar Produtos" , {:controller => "produtos" , :action => "new" }%>
+
+<h3> Importra Arquivo </h3>
+
+<%= form_tag({:action => "importar_arquivo"}, :multipart => true) do %>
+	<%= file_field_tag :datafile %> <br />
+	<%= submit_tag "Enviar" %>
+<% end %>
+
+<h3> produtos </h3>
+<table>
+	<tr>
+		<th> Nome </th>
+		<th> Preço </th>
+		<th> Quant. </th>
+		<th> Criado em </th>
+		<th> </th>
+	</tr>
+	<% @produto.each do |p| %>
+		<tr>
+			<td> <%= p.nome %> </td>
+			<td> <%= moeda(p.preco) %> </td>
+			<td> <%= p.quantidade %></td>
+			<td> <%= datetime(p.created_at) %> </td>
+			<td> <%= link_to "Editar" , "#" %> <%= link_to "Apagar" , "#" %> </td>
+		</tr>
+	<% end %>
+</table>
+
+
+<h3> Arquivos importados </h3>
+<table>
+	<tr>
+		<th> Nome </th>
+		<th> Criado em </th>
+		<th></th>
+	</tr>
+	<% @upload.each do |up| %>
+		<tr>
+			<td> <%= up.nome %> </td>
+			<td> <%= datetime(up.created_at) %></td>
+			<td>
+				<%= link_to "Download" , :controller => "produtos" , :action => "download" , :arq_id => up.id %>
+				<%= link_to "Remover", {:action => "remover_arquivo" , :arq_id => up.id }  , data: { confirm: 'Deseja remover?' } %>
+			</td>
+		</tr>
+	<% end %>
+</table>
+

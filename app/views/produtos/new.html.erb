@@ -1,0 +1,7 @@
+<h1> Novo </h1>
+
+<%= form_for(@produto , :multpart => true) do |f|%>
+	<%= f.label :datafile , "Selecione o arquivo" %><br />
+	<%= f.file_field :datafile %> <br />
+	<%= f.submit "Enviar" %>
+<% end %>
